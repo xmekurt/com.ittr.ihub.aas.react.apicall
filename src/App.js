@@ -1,26 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Login from "./Views/Login/login";
+import Register from "./Views/Register/register";
+class App extends React.Component{
+  constructor(props){
+    super(props);
+    this.state={
+      isLoginOpen:true,
+      isRegisterOpen:false,
 
-function App() {
+    };
+  }
+  render() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="root-container">
+      <div className="box-controller">
+       <div
+         className={"controller " + (this.state.isLoginOpen
+         ? "selected-controller"
+         : "")}
+         onClick={()=>{this.setState({isLoginOpen:true,isRegisterOpen:false})}}>
+         Login
+       </div>
+       <div
+         className={"controller " + (this.state.isRegisterOpen
+         ? "selected-controller"
+         : "")}
+         onClick={()=>{this.setState({isLoginOpen:false,isRegisterOpen:true})}}>
+         Register
+       </div>
+      </div>
+      <div className="box-container">
+      {this.state.isLoginOpen && <Login />}
+      {this.state.isRegisterOpen && <Register />}
+      </div>
     </div>
-  );
+  )
+  }
 }
 
 export default App;
