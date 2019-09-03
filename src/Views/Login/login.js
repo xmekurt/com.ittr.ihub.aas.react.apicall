@@ -1,4 +1,5 @@
 import React, {Component} from "react"
+import request from 'request';
 import './login.css';
 export default class Login extends Component{
 
@@ -6,7 +7,25 @@ export default class Login extends Component{
         super(props);
         this.state = {};
     }
+    async loginPressed(){
+        var username1 = document.getElementById("username").value
+        var password2 = document.getElementById("password1").value
+        console.log(username1,password2);
+        const data= { username: username1, password: password2 }
+        var options = { method: 'POST',
+        url: 'http://localhost:3001/login',
+        headers: 
+        {   'Accept': 'application/json',
+            'Content-Type': 'application/json' },
+        body: {data},
+        json: true };
 
+        request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+
+        console.log(body);
+        });
+    }
     render(){
         
         return( 
@@ -20,6 +39,7 @@ export default class Login extends Component{
                         <input
                         type="text"
                         name="username"
+                        id="username"
                         className="login-input"
                         placeholder="Username"/>
                     </div>
@@ -29,6 +49,7 @@ export default class Login extends Component{
                         <input
                         type="password"
                         name="password"
+                        id="password1"
                         className="login-input"
                         placeholder="Password"/>
                     </div>
@@ -36,7 +57,7 @@ export default class Login extends Component{
                     <button
                         type="button"
                         className="login-btn"
-                        onClick={()=>{console.log("Pressed")}}>Login</button>
+                        onClick={()=>{this.loginPressed()}}>Login</button>
                 </div>
             </div>
         )
