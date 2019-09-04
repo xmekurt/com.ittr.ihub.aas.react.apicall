@@ -1,8 +1,9 @@
 import React, {Component} from "react"
 import request from 'request';
 import './login.css';
-export default class Login extends Component{
-
+import {withRouter} from 'react-router-dom'
+class Login extends Component{
+    
     constructor(props){
         super(props);
         this.state = {};
@@ -19,11 +20,14 @@ export default class Login extends Component{
             'Content-Type': 'application/json' },
         body: {data},
         json: true };
-
+        
         request(options, function (error, response, body) {
         if (error) throw new Error(error);
 
         console.log(body);
+            
+            this.props.history.push('/home');
+        
         });
     }
     render(){
@@ -64,3 +68,4 @@ export default class Login extends Component{
     } 
 
 }
+export default withRouter(Login)
