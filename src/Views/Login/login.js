@@ -1,35 +1,30 @@
 import React, {Component} from "react"
-import request from 'request';
 import './login.css';
 import {withRouter} from 'react-router-dom'
+import axios from 'axios';
 class Login extends Component{
     
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {
+            body:"",
+        };
     }
     async loginPressed(){
         var username1 = document.getElementById("username").value
         var password2 = document.getElementById("password1").value
         console.log(username1,password2);
         const data= { username: username1, password: password2 }
-        var options = { method: 'POST',
-        url: 'http://localhost:3001/login',
-        headers: 
-        {   'Accept': 'application/json',
-            'Content-Type': 'application/json' },
-        body: {data},
-        json: true };
-        
-        request(options, function (error, response, body) {
-        if (error) throw new Error(error);
-
-        console.log(body);
-            
-            this.props.history.push('/home');
-        
-        });
+       await axios.post(`http://localhost:3001/login`, { data })
+      .then(res => {
+        console.log(res);
+        console.log('AXİOS İÇİ'+res.data);
+        this.state.body = res.data
+      })
+      if(this.state.body===true)
+        this.props.history.push('/home');
     }
+    
     render(){
         
         return( 
@@ -57,11 +52,13 @@ class Login extends Component{
                         className="login-input"
                         placeholder="Password"/>
                     </div>
-
                     <button
                         type="button"
                         className="login-btn"
-                        onClick={()=>{this.loginPressed()}}>Login</button>
+                        onClick={()=>{this.loginPressed()}}
+                        >
+                        Login
+                    </button>
                 </div>
             </div>
         )

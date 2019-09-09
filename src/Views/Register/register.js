@@ -1,14 +1,13 @@
 import React,{Component} from "react";
 import "./register.css"
-import request from 'request';
-
+import axios from 'axios';
 export default class Register extends Component{
 
     constructor(props){
         super(props);
         this.state={}
     }
-    registerPressed(){//send data to server for controll and register.
+    async registerPressed(){//send data to server for controll and register.
         var username1 = document.getElementById("username1").value;
 
         var password1 = document.getElementById("password1").value;
@@ -16,21 +15,12 @@ export default class Register extends Component{
         var password2 = document.getElementById("password2").value;
         var data ={ username : username1, password : password1 };
         if(password1 === password2){
-            var options = { method: 'POST',
-            url: 'http://localhost:3001/register',
-            headers: 
-            {   'Accept': 'application/json',
-                'Content-Type': 'application/json' },
-            body: {data},
-            json: true };
-    
-            request(options, function (error, response, body) {
-            if (error) throw new Error(error);
-    
-            console.log(body);
-            });
-        }else{
-            console.log(password1,password2);
+            await axios.post(`http://localhost:3001/register`, { data })
+            .then(res => {
+                console.log(res);
+                console.log('AXİOS İÇİ'+res.data);
+                this.state.body = res.data
+            })
         }
         //sending data to server.
     }

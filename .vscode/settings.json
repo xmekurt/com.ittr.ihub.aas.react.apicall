@@ -1,0 +1,7 @@
+{
+    "appService.zipIgnorePattern": [
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/2a06aff4-13d5-4175-a694-bad504a49e94/resourceGroups/xmekurtDeneme/providers/Microsoft.Web/sites/denemexmekurt",
+    "appService.deploySubpath": ""
+}

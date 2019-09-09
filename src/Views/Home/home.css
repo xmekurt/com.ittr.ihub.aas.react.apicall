@@ -1,0 +1,5 @@
+.box2 {
+    position:absolute;
+    margin-left:-150px; /* half of width */
+    left:50%;
+}
